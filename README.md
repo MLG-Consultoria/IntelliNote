@@ -1,8 +1,10 @@
-<h1 align="center">[Insira aqui o Titulo da Solução]</h1>
+<h1 align="center">Nexus Workspace (Nome Provisório)</h1>
 
 ###
 
-<p align="left">[Insira aqui a Descrição]</p>
+<p align="left">
+Uma plataforma unificada de produtividade e desenvolvimento profissional, desenhada para os desafios do futuro do trabalho. O Nexus Workspace combina a organização de um workspace flexível com o poder de uma IA generativa integrada, atuando como uma parceira para o dia a dia. A solução foca em ajudar profissionais a conciliar a vida pessoal e profissional em regimes híbridos e oferece uma plataforma inteligente de <i>upskilling</i> e <i>reskilling</i> baseada em IA  
+</p>
 
 ###
 
@@ -10,7 +12,23 @@
 
 ###
 
-<p align="left">[Insira aqui o Sumário do Projeto]</p>
+<p align="left">
+  
+  ```
+  1. Título e Descrição
+  2. Status do Projeto
+  3. Sumário
+  4. Sobre o Projeto
+  5. Tecnologias Utilizadas
+  6. Instalação
+  7. Como Usar
+  8. Estrutura de Pastas
+  9. Endpoints ou Rotas Principais
+  10. Autores e Créditos
+  11. Screenshots / Demonstração
+  12. Contato
+  ```
+</p>
 
 ###
 
@@ -18,7 +36,19 @@
 
 ###
 
-<p align="left">[Insira aqui o texto sobre o projeto]</p>
+<p align="left">
+Este projeto é a nossa resposta à <strong>Global Solution 2025/2 da FIAP</strong>, que propõe o desafio de reimaginar "O Futuro do Trabalho". Vivemos um momento de disrupção, onde avanços como a inteligência artificial estão transformando profissões. Em vez de ver esse cenário como uma ameaça, nossa solução o encara como uma "oportunidade única de reimaginar o trabalho".
+<br><br>
+O Nexus Workspace nasce da fusão de três pilares de inspiração fornecidos pelo desafio:
+</p>
+<ul align="left">
+  <li>Plataformas de upskilling e reskilling baseadas em IA;</li>
+  <li>Aplicativos para conciliar vida pessoal e profissional em regimes híbridos;</li>
+  <li>Bots e agentes de IA como parceiros no dia a dia de trabalho.</li>
+</ul>
+<p align="left">
+Nossa solução é um assistente de produtividade que centraliza tarefas, notas e calendários, ajudando o profissional a organizar sua rotina híbrida. O diferencial é a nossa IA generativa integrada, que atua como uma parceira proativa: ela não apenas ajuda a executar tarefas, mas também analisa os objetivos de carreira do usuário para sugerir ativamente trilhas de <i>upskilling</i> e <i>reskilling</i>, conectando o trabalho diário ao desenvolvimento contínuo.
+</p>
 
 ###
 
@@ -127,6 +157,6 @@
 
 ###
 
-<p align="left">[Insira aqui os Links do  projeto]<br><br>Github: <br>Youtube:<br>Site:</p>
+<p align="left">Github: https://github.com/MLG-Consultoria/Global-Solution-2-Semestre<br>Youtube:<br>Site:</p>
 
 ###
