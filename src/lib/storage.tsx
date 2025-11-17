@@ -1,0 +1,1 @@
+/*Arquivo para armazenamento local de login*/
