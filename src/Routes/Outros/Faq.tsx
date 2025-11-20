@@ -12,12 +12,12 @@ const FaqItem: React.FC<FaqItemProps> = ({ pergunta, resposta, isOpen, onClick }
   return (
     <div className="border-b border-neutral-700 w-full">
       <button
-        className="flex justify-between items-center w-full text-left py-5 font-semibold text-neutral-100 hover:text-neutral-300 focus:outline-none"
+        className="flex justify-between items-center w-full text-left py-5 font-semibold text-gray-900 dark:text-gray-100 hover:text-neutral-700 dark:hover:text-neutral-300 focus:outline-none cursor-pointer"
         onClick={onClick}
       >
-        <span className="text-lg">{pergunta}</span>
+        <span className="text-lg hover:underline">{pergunta}</span>
         
-        <span className={`transform transition-transform duration-300 text-neutral-400 ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
+        <span className={`transform transition-transform duration-300 hover:unde text-neutral-400 ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
           ▼
         </span>
       </button>
@@ -39,7 +39,7 @@ const Faq: React.FC = () => {
   };
 
   return (
-    <main className="container py-8 text-white flex flex-col justify-center items-center min-w-screen w-full px-4">
+    <main className="container py-8 text-gray-900 dark:text-gray-100 flex flex-col justify-center items-center min-w-screen w-full px-4">
       <div className="mx-auto max-w-3xl">
         
         <h1 className="mb-2 text-3xl font-bold">Perguntas Frequentes</h1>

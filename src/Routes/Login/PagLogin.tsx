@@ -72,24 +72,21 @@ const PagLogin: React.FC = () => {
     };
   }, []);
 
-
-
-
     return (
-      <main className="border border-gray-800 p-4 mt-30 sm:mt-30 lg:mt-40 rounded-lg shadow-lg bg-white dark:bg-gray-950 text-gray-950 dark:text-gray-100 w-fit mx-auto sm:w-full sm:max-w-md">
+      <main className="border border-gray-200 dark:border-gray-800 p-4 mt-30 sm:mt-30 lg:mt-40 rounded-lg shadow-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 w-fit mx-auto sm:w-full sm:max-w-md transition-colors duration-300">
         <div className="text-center flex flex-col justify-center items-center mt-3">
           
-          <div className="bg-white text-2xl text-gray-800 w-12 h-12 border border-white rounded-xl flex items-center justify-center font-bold mb-5">
+          <div className="bg-gray-900 text-white dark:bg-white dark:text-gray-900 text-2xl w-12 h-12 border border-transparent rounded-xl flex items-center justify-center font-bold mb-5 transition-colors">
             <p>IN</p>
           </div>
-          <h1 className="text-2xl">
+          <h1 className="text-2xl font-bold">
             IntelliNote
           </h1>
-          <p className="text-gray-400 text-sm">Entre na sua Conta</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">Entre na sua Conta</p>
 
           <form onSubmit={handleSubmit} className="flex flex-col mt-5 w-full text-left">
             <div className="w-full flex flex-col">
-              <p className="mb-2">Email</p>
+              <p className="mb-2 font-medium">Email</p>
               <input 
                 type="email"
                 id="email"
@@ -97,13 +94,13 @@ const PagLogin: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="seu@email.com"
-                className="mb-4 p-2 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+                className="mb-4 p-2 border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-white transition-colors"
                 required
               />
               {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
             </div>
             <div className="w-full flex flex-col">
-              <p className="mb-2">Senha</p>
+              <p className="mb-2 font-medium">Senha</p>
               <div className="relative w-full mb-4">
                 <input 
                   type={showPassword ? 'text' : 'password'}
@@ -112,14 +109,14 @@ const PagLogin: React.FC = () => {
                   name="senha"
                   value={formData.senha}
                   onChange={handleChange}
-                  className="w-full p-2 pr-10 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+                  className="w-full p-2 pr-10 border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-950 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-white transition-colors"
                   required
                 />
                 
                 <button
                   type="button" 
                   onClick={() => setShowPassword(!showPassword)} 
-                  className="absolute inset-y-0 right-0 flex items-center justify-center h-full w-10 text-gray-600 hover:text-white"
+                  className="absolute inset-y-0 right-0 flex items-center justify-center h-full w-10 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                   aria-label="Mostrar/esconder senha"
                 >
                   {showPassword ? 
@@ -131,7 +128,7 @@ const PagLogin: React.FC = () => {
             </div>
 
             {authError && (
-              <div className="mb-4 p-3 text-red-800 bg-red-200 border border-red-300 rounded-lg">
+              <div className="mb-4 p-3 text-red-800 bg-red-100 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg">
                 {authError}
               </div>
             )}
@@ -139,26 +136,28 @@ const PagLogin: React.FC = () => {
             <button 
               type="submit"
               disabled={!isValid}
-              className={`bg-white text-gray-950 p-2 rounded-md hover:bg-gray-300 transition-colors"
-              ${!isValid ? 'opacity-50 cursor-not-allowed hover:scale-100' : 'hover:bg-gray-400 transition-transform hover:scale-98 cursor-pointer'}`}
+              className={`p-2 rounded-md transition-all font-medium
+              ${!isValid 
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-800 dark:text-gray-600' 
+                : 'bg-gray-900 text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 cursor-pointer hover:scale-[0.98]'}`}
             >
               Entrar
             </button>
           </form>
-          <hr className="mt-4 border-gray-700 w-full" />
+          <hr className="mt-4 border-gray-200 dark:border-gray-700 w-full" />
           <button
-            className="mt-4 border border-gray-600 bg-gray-950 text-white p-2 rounded-md hover:bg-gray-700 transition-colors w-full flex items-center justify-center gap-3 cursor-pointer"
+            className="mt-4 border border-gray-300 dark:border-gray-600 bg-white text-gray-900 dark:bg-gray-950 dark:text-white p-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors w-full flex items-center justify-center gap-3 cursor-pointer"
           >
             <FaRegEnvelope  />
             Entrar com Google
           </button>
-          <p className="text-sm text-gray-400">Apenas uma opção visual - Em Desenvolvimento</p>
+          <p className="text-sm text-gray-400 mt-2">Apenas uma opção visual - Em Desenvolvimento</p>
           <div className="mt-4">
-            <p className="text-gray-600">Não possui uma conta? <a href="/Registro" className="text-white hover:underline">Registre-se</a></p>
+            <p className="text-gray-600 dark:text-gray-400">Não possui uma conta? <a href="/Registro" className="text-gray-900 dark:text-white font-medium hover:underline">Registre-se</a></p>
           </div>
-          <div className="mt-4 justify-center flex flex-col items-center text-gray-600">
+          <div className="mt-4 justify-center flex flex-col items-center text-gray-600 dark:text-gray-400">
             <LoadingCircle />
-            <p>Carregando Seus Dados...</p>
+            <p className="mt-2">Carregando Seus Dados...</p>
           </div>
         </div>      
       </main>

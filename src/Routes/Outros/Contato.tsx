@@ -89,7 +89,6 @@ const Contato = () => {
                 setIsLoading(false);
                 setIsSubmitted(true); 
                 setFormData({ name: '', email: '', message: '' }); 
-
             }, 2000); 
 
         } else {
@@ -104,7 +103,7 @@ const Contato = () => {
                 <p className="text-gray-400">Envie suas dúvidas, sugestões ou feedback</p>
             </article>
 
-            <section className="mt-6 border border-gray-700 p-5 rounded-lg ">
+            <section className="mt-6 border border-gray-300 dark:border-gray-700 p-5 rounded-lg ">
                 <h2 className="font-medium text-2xl">Entre em Contato</h2>
                 <p className="text-gray-400">Preencha o formulário abaixo e retornaremos em breve</p>
                 
@@ -125,7 +124,7 @@ const Contato = () => {
                                 placeholder="Nome completo"
                                 value={formData.name}
                                 onChange={handleChange}
-                                className={`p-2 border ${errors.name ? 'border-red-500' : 'border-gray-600'} rounded-lg bg-gray-800 text-white`} 
+                                className={`p-2 border ${errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} rounded-lg bg-gray-200 dark:bg-gray-800 text-black dark:text-white`} 
                             />
                             {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
                         </div>
@@ -139,7 +138,7 @@ const Contato = () => {
                                 placeholder="seu@email.com"
                                 value={formData.email}
                                 onChange={handleChange} 
-                                className={`p-2 border ${errors.email ? 'border-red-500' : 'border-gray-600'} rounded-lg bg-gray-800 text-white`}
+                                className={`p-2 border ${errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} rounded-lg bg-gray-200 dark:bg-gray-800 text-black dark:text-white`}
                             />
                             {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
                         </div>
@@ -152,14 +151,14 @@ const Contato = () => {
                                 rows={5} 
                                 value={formData.message}
                                 onChange={handleChange}
-                                className={`p-2 border ${errors.message ? 'border-red-500' : 'border-gray-600'} rounded-lg bg-gray-800 text-white`}
+                                className={`p-2 border ${errors.message ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'} rounded-lg bg-gray-200 dark:bg-gray-800 text-neutral-900 dark:text-white`}
                             ></textarea>
                             {errors.message && <span className="text-red-500 text-sm">{errors.message}</span>}
                         </div>
 
                         <button 
                             type="submit" 
-                            className="bg-white hover:bg-gray-300 hover:transform hover:scale-98 transition-colors text-gray-800 font-medium py-2 px-4 rounded-lg cursor-pointer disabled:bg-gray-500 disabled:cursor-not-allowed flex items-center justify-center" 
+                            className="bg-neutral-900 dark:bg-neutral-100 hover:bg-neutral-800 dark:hover:bg-gray-300 transition-colors text-neutral-100 dark:text-gray-800 font-medium py-2 px-4 rounded-lg cursor-pointer disabled:bg-gray-500 disabled:cursor-not-allowed flex items-center justify-center" 
                             disabled={isLoading}
                         >
                             {isLoading ? <LoadingCircle /> : 'Enviar'}
