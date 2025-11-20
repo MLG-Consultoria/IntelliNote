@@ -2,13 +2,51 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 
+/*Animação de fade-in para algumas páginas*/
+  @keyframes fade-in-slide-left {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 
+  @keyframes fade-in-slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
+.animate-fade-in-slide-down {
+  animation: fade-in-slide-down 0.7s ease-out both;
+}
 
+.animate-fade-in-slide-left {
+  animation: fade-in-slide-left 0.7s ease-out both;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+.delay-900 { animation-delay: 900ms; }
+.delay-1000 { animation-delay: 1000ms; }
 
 
 /*Esconde header e footer no form de login*/
-body.hide-layout Header,
-body.hide-layout Footer {
+body.hide-layout header,
+body.hide-layout footer {
   display: none !important;
 }
