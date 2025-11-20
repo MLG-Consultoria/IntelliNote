@@ -1,5 +1,6 @@
-import { useState } from 'react'
 import { Routes, Route } from "react-router-dom";
+import { ThemeProvider } from './context/ThemeContext';
+
 
 import Header from './Components/Header'
 import MenuPrincipal from './Routes/Outros/MenuPrincipal';
@@ -21,8 +22,8 @@ import Footer from './Components/Footer'
 
 function App() {
   return (
-    <>
-      <main className="flex flex-col min-h-screen bg-gray-100 dark:bg-linear-to-br from-gray-900 to-gray-950 text-gray-900 dark:text-gray-100">
+    <ThemeProvider>   
+      <main className="flex flex-col min-h-screen transition-colors duration-300 bg-gray-100 dark:bg-linear-to-br from-gray-900 to-gray-950 text-gray-900 dark:text-gray-100">
         <Header />
 
         <div>
@@ -44,7 +45,7 @@ function App() {
         </div>
         <Footer />
       </main>
-    </>
+    </ThemeProvider>
   )
 }
 
