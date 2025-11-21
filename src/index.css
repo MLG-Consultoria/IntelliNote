@@ -1,6 +1,21 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*Animação de slide-in para o header mobile*/
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-in.slide-in-from-right {
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 
 /*Animação de fade-in para algumas páginas*/
   @keyframes fade-in-slide-left {
