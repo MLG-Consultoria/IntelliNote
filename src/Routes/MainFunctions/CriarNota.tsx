@@ -89,7 +89,7 @@ const CriarNota = () => {
                         )}
                     </div>
 
-                    <button className="flex-1 sm:flex-none justify-center items-center font-medium gap-2 border border-gray-300 dark:border-gray-700 rounded-md px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex text-gray-700 dark:text-gray-300">
+                    <button className="flex-1 sm:flex-none justify-center items-center font-medium gap-2 border border-gray-300 dark:border-gray-700 rounded-md px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors hidden text-gray-700 dark:text-gray-300">
                         <PiSparkleBold size={16} />
                         Melhorar Com IA
                     </button>
