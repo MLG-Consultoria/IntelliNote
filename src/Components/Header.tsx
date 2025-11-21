@@ -1,11 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ThemeToggleButton } from '../Components/DarkModeToggle';
-
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { FaSearch, FaPlus, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 import { HiUser } from "react-icons/hi";
-
 import { storage } from "../lib/storage";
 
 export const Header = () => {
@@ -41,7 +39,7 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-300 dark:border-gray-700/50 bg-white dark:bg-[#111113]">
-      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 md:px-6">
+      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 md:gap-4 px-4 md:px-6">
 
         <Link to="/MenuPrincipal" className="flex items-center gap-2 z-50">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-900 dark:bg-white dark:text-black text-white">
@@ -52,7 +50,7 @@ export const Header = () => {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6 text-sm ml-4">
+        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-sm ml-2 lg:ml-4">
           <Link to="/Integrantes" className={navLinkClasses}> Integrantes </Link>
           <Link to="/Faq" className={navLinkClasses}> FAQ </Link>
           <Link to="/reskilling" className={navLinkClasses}> Reskilling </Link>
@@ -63,15 +61,17 @@ export const Header = () => {
         </nav>
 
         <div className="hidden md:flex ml-auto items-center gap-2">
-          <form onSubmit={handleSearch} className="hidden lg:flex items-center gap-2">
+          <form onSubmit={handleSearch} className="hidden md:flex items-center gap-2">
             <div className="relative">
               <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               <input
                 type="search"
-                placeholder="Buscar notas..."
-                className="h-9 w-[200px] lg:w-[300px] rounded-md border border-gray-700/50 bg-gray-100/10
+                placeholder="Buscar..."
+                className="h-9 
+                           w-[120px] lg:w-[300px] /* Tablet: 120px | Desktop: 300px */
+                           rounded-md border border-gray-700/50 bg-gray-100/10
                            pl-9 pr-3 text-sm text-white placeholder:text-gray-400
-                           focus:outline-none focus:ring-2 focus:ring-gray-500"
+                           focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -80,12 +80,14 @@ export const Header = () => {
 
           <Link to="/CriarNota">
             <button
-              className="flex h-9 items-center gap-2 rounded-md bg-neutral-900 dark:bg-white px-3
+              className="flex h-9 items-center justify-center gap-2 rounded-md bg-neutral-900 dark:bg-white 
+                         px-2 lg:px-3 /* Menos padding no tablet */
                          text-sm font-medium text-gray-300 dark:text-gray-900
                          hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors cursor-pointer"
+              title="Nova Nota"
             >
               <FaPlus className="h-3 w-3" />
-              Nova Nota
+              <span className="hidden lg:inline">Nova Nota</span>
             </button>
           </Link>
 
@@ -128,8 +130,9 @@ export const Header = () => {
           )}
         </div>
 
+        {/* --- ÍCONES MOBILE --- */}
         <div className="flex md:hidden ml-auto items-center gap-4">
-             <button onClick={() => navigate('/VerNota')} className="text-gray-600 dark:text-gray-300">
+             <button onClick={() => setIsMobileMenuOpen(true)} className="text-gray-600 dark:text-gray-300">
                 <FaSearch className="h-5 w-5" />
             </button>
             
@@ -143,6 +146,7 @@ export const Header = () => {
 
       </div>
 
+      {/* --- MENU MOBILE --- */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-60 flex justify-end">
             
@@ -153,7 +157,7 @@ export const Header = () => {
 
             <div className="relative h-full w-full sm:w-[350px] bg-white dark:bg-[#09090B] border-l border-gray-200 dark:border-gray-800 p-6 shadow-2xl animate-in slide-in-from-right duration-300 flex flex-col">
             
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-2">
                         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-900 dark:bg-white dark:text-black text-white">
                             <span className="text-md font-bold">IN</span>
@@ -170,6 +174,19 @@ export const Header = () => {
 
                 <div className="flex flex-col gap-4 flex-1 overflow-y-auto">
                     
+                    <form onSubmit={handleSearch} className="relative w-full">
+                         <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
+                         <input
+                            type="search"
+                            placeholder="Buscar notas..."
+                            className="h-10 w-full rounded-md border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-[#1C1C1E]
+                                       pl-9 pr-3 text-sm text-gray-900 dark:text-white placeholder:text-gray-500
+                                       focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                         />
+                    </form>
+
                     <Link to="/CriarNota" onClick={closeMenu}>
                         <button className="flex w-full items-center gap-2 rounded-md bg-white dark:bg-[#1C1C1E] border border-gray-200 dark:border-gray-800 px-4 py-3 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                             <FaPlus className="h-4 w-4" />
