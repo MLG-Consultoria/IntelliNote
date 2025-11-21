@@ -64,7 +64,7 @@ const UpSkilling = () => {
 
                         <button
                             type="submit"
-                            className="bg-neutral-900 dark:bg-neutral-100 hover:bg-neutral-800 dark:hover:bg-gray-300 transition-colors text-neutral-100 dark:text-gray-800 font-medium py-2 px-4 rounded-lg cursor-pointer disabled:bg-gray-500 disabled:cursor-not-allowed flex items-center justify-center"
+                            className="bg-neutral-900 dark:bg-neutral-100 hover:bg-neutral-800 dark:hover:bg-gray-500 transition-colors text-neutral-100 dark:text-gray-800 font-medium py-2 px-4 rounded-lg cursor-pointer disabled:bg-gray-500 disabled:cursor-not-allowed flex items-center justify-center"
                             disabled={isLoading}
                         >
                             {isLoading ? <LoadingCircle /> : 'Gerar Plano de Evolução'}
