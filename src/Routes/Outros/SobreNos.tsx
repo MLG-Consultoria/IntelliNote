@@ -1,3 +1,5 @@
+import BotaoVoltar from '../../Components/BotaoVoltar';
+
 const SobreNos = () => { 
     return (
         <main className="flex-1 text-neutral-900 dark:text-white py-16 px-4 sm:px-6 lg:px-8">
@@ -39,6 +41,7 @@ const SobreNos = () => {
                         </p>
                     </div>
 
+                <BotaoVoltar variant="button" label="Voltar para a página anterior"/>
                 </section>
             </div>
         </main>

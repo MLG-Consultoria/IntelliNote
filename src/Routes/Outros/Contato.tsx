@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
 import LoadingCircle from "../../Components/LoadingCircle";
+import BotaoVoltar from '../../Components/BotaoVoltar';
 
 const Contato = () => {
 
@@ -166,6 +167,7 @@ const Contato = () => {
                     </div>
                 </form>
             </section>
+            <BotaoVoltar variant="button" label="Voltar para a página anterior" className="mt-5" />
         </main>
     );
 }

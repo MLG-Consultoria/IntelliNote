@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LoadingCircle from "../../Components/LoadingCircle";
 import { GeminiService } from '../../services/GeminiService';
+import BotaoVoltar from "../../Components/BotaoVoltar";
 
 const UpSkilling = () => {
 
@@ -90,6 +91,7 @@ const UpSkilling = () => {
                     </div>
                 </section>
             )}
+            <BotaoVoltar variant="button" label="Voltar para a página anterior" className="mt-5" />
         </main>
     );
 }

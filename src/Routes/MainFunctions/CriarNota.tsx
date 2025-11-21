@@ -3,6 +3,8 @@ import { PiSparkleBold } from "react-icons/pi";
 import { RiSave3Line } from "react-icons/ri";
 import { storage } from '../../lib/storage'; 
 import PopUpNote from '../../Components/PopUpNote'; 
+import BotaoVoltar from "../../Components/BotaoVoltar";
+
 
 const CriarNota = () => {
     const [tags, setTags] = useState<string[]>([]);
@@ -155,6 +157,7 @@ const CriarNota = () => {
                         className="w-full h-[400px] bg-transparent border border-gray-300 dark:border-gray-700 rounded-lg p-4 text-sm focus:outline-none focus:border-gray-500 transition-colors placeholder-gray-500 resize-none font-mono"
                     ></textarea>
                 </div>
+                <BotaoVoltar variant="button" label="Voltar para a página anterior" />
             </div>
         </main>
     );

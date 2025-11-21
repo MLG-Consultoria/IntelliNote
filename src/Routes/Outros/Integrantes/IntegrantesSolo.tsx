@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { IntegrantesDataUnico } from "../../../data/IntegrantesData"; 
 import { FaGithub, FaLinkedin } from 'react-icons/fa'; 
+import BotaoVoltar from '../../../Components/BotaoVoltar';
 
 const IntegrantesSolo = () => {
   const { nome } = useParams();
@@ -102,6 +103,12 @@ const IntegrantesSolo = () => {
           </div>
         </div>
       </div>
+      <div className="flex justify-center mt-6">
+        <BotaoVoltar 
+          variant="button" 
+          label="Voltar para a página anterior" 
+        />
+    </div>
     </div>
   );
 }

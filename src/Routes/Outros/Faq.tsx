@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {ConjuntoPerguntas} from '../../data/FaqData';
+import BotaoVoltar from '../../Components/BotaoVoltar';
 
 interface FaqItemProps {
   pergunta: string;
@@ -63,6 +64,7 @@ const Faq: React.FC = () => {
         })}
         </div>
       </div>
+      <BotaoVoltar variant="button" label="Voltar para a página anterior" className="mt-5" />
     </main>
   );
 };

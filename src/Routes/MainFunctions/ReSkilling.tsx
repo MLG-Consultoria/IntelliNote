@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LoadingCircle from "../../Components/LoadingCircle";
 import { GeminiService } from '../../services/GeminiService';
+import BotaoVoltar from "../../Components/BotaoVoltar";
 
 const ReSkilling = () => {
     const [profession, setProfession] = useState('');
@@ -41,7 +42,7 @@ const ReSkilling = () => {
 
     return (
         <main className="flex-1 flex flex-col justify-center px-4 py-8 p-10 sm:py-10 lg:px-10 lg:py-10 xl:px-32 2xl:px-48">
-            <article className="gap-1 flex flex-col">
+            <article className="gap-1 mt-3 flex flex-col">
                 <h1 className="font-bold text-3xl">Reskilling - Transição de Carreira</h1>
                 <p className="text-gray-400">
                     Descubra as melhores opções para sua transição profissional com ajuda da IA.
@@ -112,6 +113,7 @@ const ReSkilling = () => {
                     </div>
                 </section>
             )}
+            <BotaoVoltar variant="button" label="Voltar para a página anterior" className="mt-5" />
         </main>
     );
 }

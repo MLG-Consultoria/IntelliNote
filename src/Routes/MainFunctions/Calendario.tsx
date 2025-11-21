@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaChevronLeft, FaChevronRight, FaTrash } from 'react-icons/fa';
 import { storage, type Reminder } from '../../lib/storage';
+import BotaoVoltar from '../../Components/BotaoVoltar';
 
 const Calendario = () => {
   const navigate = useNavigate();
@@ -47,8 +48,8 @@ const Calendario = () => {
 
   return (
     <main className="flex-1 flex flex-col items-center pt-10 px-4 pb-10 text-gray-900 dark:text-gray-100">
-      
-      <h1 className="text-3xl font-bold mb-8 text-left w-full max-w-5xl px-2">Calendário de Lembretes</h1>
+      <BotaoVoltar variant="arrow" className="absolute" />
+      <h1 className="text-3xl font-bold mb-8 mt-6 sm:mt-10 text-left w-full max-w-5xl px-2">Calendário de Lembretes</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
         

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'; 
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { IntegrantesDataGeral } from '../../../data/IntegrantesData';
+import BotaoVoltar from '../../../Components/BotaoVoltar';
 
 const Integrantes = () => {
   return (
@@ -65,6 +66,12 @@ const Integrantes = () => {
           );
           })}
       </section>
+      <div className="flex justify-center mt-6">
+        <BotaoVoltar 
+          variant="button" 
+          label="Voltar para a página anterior" 
+        />
+      </div>
     </main>
   );
 }

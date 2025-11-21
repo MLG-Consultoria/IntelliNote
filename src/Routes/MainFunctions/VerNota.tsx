@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { storage, type Note } from "../../lib/storage"; 
 import { RiDeleteBinLine } from "react-icons/ri";
 import ExcludeNoteConfirm from "../../Components/ExcludeNoteConfirmProps"
+import BotaoVoltar from "../../Components/BotaoVoltar";
 
 const VerNota = () => {
     const [notes, setNotes] = useState<Note[]>([]);
@@ -51,6 +52,7 @@ const VerNota = () => {
 
     return (
         <main className="flex-1 flex flex-col pt-10 px-6 sm:px-10 pb-10 text-gray-900 dark:text-gray-100 relative">
+            <BotaoVoltar variant="arrow" className="static -mt-4 -mb-3 w-23" />
             
             {noteToDelete && (
                 <ExcludeNoteConfirm 
@@ -59,7 +61,7 @@ const VerNota = () => {
                 />
             )}
 
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-6 mt-4 sm:mt-10">
                 <div className="flex flex-col">
                     <h1 className="font-bold text-3xl text-neutral-900 dark:text-white">Minhas Notas</h1>
                     
