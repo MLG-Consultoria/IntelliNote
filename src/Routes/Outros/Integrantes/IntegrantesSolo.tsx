@@ -28,7 +28,7 @@ const IntegrantesSolo = () => {
             <img 
               src={integrante.imgSrc} 
               alt={`Foto de ${integrante.nome}`} 
-              className="w-60 h-55 md:w-72 md:h-66 object-cover" 
+              className="w-70 h-65 md:w-80 md:h-80 object-cover" 
             />
           </div>
 
