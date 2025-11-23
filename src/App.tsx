@@ -15,23 +15,20 @@ import Contato from './Routes/Outros/Contato';
 // Funções Principais
 import VerNota from './Routes/MainFunctions/VerNota';
 import CriarNota from './Routes/MainFunctions/CriarNota';
-import EditarNota from './Routes/MainFunctions/EditarNota'; // ADICIONADO: Arquivo novo
+import EditarNota from './Routes/MainFunctions/EditarNota'; 
 import Calendario from './Routes/MainFunctions/Calendario';
 import ReSkilling from './Routes/MainFunctions/ReSkilling';
 import UpSkilling from './Routes/MainFunctions/UpSkilling';
-import Lixeira from './Routes/MainFunctions/Lixeira'; // ADICIONADO: Mantido do antigo
+import Lixeira from './Routes/MainFunctions/Lixeira'; 
 
 import ProtectedRoute from "./context/ProtectedRoute";
-import { isLogged } from "./lib/storage";
 
 function App() {
   const location = useLocation();
-  const logged = isLogged();
 
-  // Lógica visual: O Header/Footer aparecem se estiver logado OU se não estiver nas páginas de login/registro
-  // Isso evita que o Header suma logo após o login antes de um refresh
+  // Correção: Removi a variável showLayout que estava causando o erro.
+  // Usamos direto a verificação abaixo para saber se é pagina de login/registro
   const isAuthPage = location.pathname === "/" || location.pathname === "/Registro";
-  const showLayout = logged || !isAuthPage; 
 
   return (
     <ThemeProvider>
@@ -69,7 +66,6 @@ function App() {
             <Route path="/CriarNota" element={
               <ProtectedRoute><CriarNota /></ProtectedRoute>} />
 
-            {/* ADICIONADO: Rota para Editar Nota */}
             <Route path="/editar/:id" element={
               <ProtectedRoute><EditarNota /></ProtectedRoute>} />
 
@@ -82,7 +78,6 @@ function App() {
             <Route path="/UpSkilling" element={
               <ProtectedRoute><UpSkilling /></ProtectedRoute>} />
 
-            {/* ADICIONADO: Rota da Lixeira (Local) */}
             <Route path="/Lixeira" element={
               <ProtectedRoute><Lixeira /></ProtectedRoute>} />
 
@@ -91,6 +86,7 @@ function App() {
           </Routes>
         </div>
         
+        {/* Renderiza Footer se não for página de login/registro */}
         {!isAuthPage && <Footer />}
       </main>
     </ThemeProvider>
