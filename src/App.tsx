@@ -1,6 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+// src/App.tsx
+import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from './context/ThemeContext';
-import Header from './Components/Header'
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+
 import MenuPrincipal from './Routes/Outros/MenuPrincipal';
 import PagLogin from './Routes/Login/PagLogin';
 import RegistrarUser from './Routes/Login/RegistrarUser';
@@ -15,36 +18,61 @@ import Calendario from './Routes/MainFunctions/Calendario';
 import ReSkilling from './Routes/MainFunctions/ReSkilling';
 import UpSkilling from './Routes/MainFunctions/UpSkilling';
 
-import Footer from './Components/Footer'
-
+import ProtectedRoute from "./context/ProtectedRoute";
+import { isLogged } from "./lib/storage";
 
 function App() {
-  return (
-      <ThemeProvider>      
-      <main className="flex flex-col min-h-screen transition-colors duration-300 bg-gray-100 dark:bg-linear-to-br from-gray-900 to-gray-950 text-gray-900 dark:text-gray-100">
-          <Header />
+  const logged = isLogged();
 
-          <div className='flex-1'>
-            <Routes>
-              <Route path="/" element={<PagLogin />} />
-              <Route path="/Registro" element={<RegistrarUser />} />
-              <Route path="/MenuPrincipal" element={<MenuPrincipal />} />
-              <Route path="/Integrantes" element={<Integrantes />} />
-              <Route path="/Integrantes/:nome" element={<IntegrantesSolo />} />
-              <Route path="/Faq" element={<Faq />} />
-              <Route path="/SobreNos" element={<SobreNos />} />
-              <Route path="/Contato" element={<Contato />} />
-              <Route path="/VerNota" element={<VerNota />} />
-              <Route path="/CriarNota" element={<CriarNota />} />
-              <Route path="/Calendario" element={<Calendario />} />
-              <Route path="/ReSkilling" element={<ReSkilling />} />
-              <Route path="/UpSkilling" element={<UpSkilling />} />
-            </Routes>
-          </div>
-          <Footer />
-        </main>
-      </ThemeProvider>
-  )
+  return (
+    <ThemeProvider>
+      <main className="flex flex-col min-h-screen transition-colors duration-300 bg-gray-100 dark:bg-linear-to-br from-gray-900 to-gray-950 text-gray-900 dark:text-gray-100">
+        
+        {logged && <Header />}
+
+        <div className='flex-1'>
+          <Routes>
+            
+            <Route path="/" element={<PagLogin />} />
+            <Route path="/Registro" element={<RegistrarUser />} />
+
+          
+            <Route path="/MenuPrincipal" element={
+              <ProtectedRoute><MenuPrincipal /></ProtectedRoute>} />
+
+            <Route path="/Integrantes" element={
+              <ProtectedRoute><Integrantes /></ProtectedRoute>} />
+            <Route path="/Integrantes/:nome" element={
+              <ProtectedRoute><IntegrantesSolo /></ProtectedRoute>} />
+
+            <Route path="/Faq" element={
+              <ProtectedRoute><Faq /></ProtectedRoute>} />
+            <Route path="/SobreNos" element={
+              <ProtectedRoute><SobreNos /></ProtectedRoute>} />
+            <Route path="/Contato" element={
+              <ProtectedRoute><Contato /></ProtectedRoute>} />
+
+            <Route path="/VerNota" element={
+              <ProtectedRoute><VerNota /></ProtectedRoute>} />
+            <Route path="/CriarNota" element={
+              <ProtectedRoute><CriarNota /></ProtectedRoute>} />
+            <Route path="/Calendario" element={
+              <ProtectedRoute><Calendario /></ProtectedRoute>} />
+            <Route path="/ReSkilling" element={
+              <ProtectedRoute><ReSkilling /></ProtectedRoute>} />
+            <Route path="/UpSkilling" element={
+              <ProtectedRoute><UpSkilling /></ProtectedRoute>} />
+
+            
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+
+        
+        {logged && <Footer />}
+      </main>
+    </ThemeProvider>
+  );
 }
 
 export default App;
