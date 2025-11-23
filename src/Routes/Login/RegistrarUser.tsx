@@ -131,11 +131,6 @@ const RegistrarUser: React.FC = () => {
         <div className="mt-4">
           <p className="text-gray-600 dark:text-gray-400">Ja tem uma conta? <a href="/" className="text-gray-900 dark:text-white font-medium hover:underline">Entre</a></p>
         </div>
-
-        <div className="mt-4 justify-center flex flex-col items-center text-gray-600 dark:text-gray-400">
-          <LoadingCircle />
-          <p className="mt-2">Carregando Seus Dados...</p>
-        </div>
       </div>
     </main>
   );

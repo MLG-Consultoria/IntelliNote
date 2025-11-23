@@ -7,6 +7,7 @@ export interface Note {
   content: string;
   tags: string[];
   createdAt: string;
+  isTrashed?: boolean;
 }
 
 export interface Reminder {
@@ -46,21 +47,16 @@ export function authHeader() {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
-// ---------- NOTES ----------
+// ---------- NOTES (PRINCIPAL) ----------
 
-// Mantém função SÍNCRONA para compatibilidade com componentes que já usam sync.
 export function getUserNotes(): Note[] {
   const user = getCurrentUser();
   if (!user) return [];
-  // tenta retornar cache local (sempre rápido)
-  const cached = JSON.parse(localStorage.getItem(`notes_${user.userId}`) || "[]");
+  // Retorna notas do cache local que NÃO estão na lixeira (segurança extra)
+  const cached: Note[] = JSON.parse(localStorage.getItem(`notes_${user.userId}`) || "[]");
   return cached;
 }
 
-/**
- * Atualiza cache local a partir do backend (opcional, chamável de lugares que suportem async)
- * Uso: await refreshUserNotesFromApi();
- */
 export async function refreshUserNotesFromApi(): Promise<Note[]> {
   const user = getCurrentUser();
   if (!user) return [];
@@ -83,17 +79,10 @@ export async function refreshUserNotesFromApi(): Promise<Note[]> {
   }
 }
 
-/**
- * Salva nota:
- * - se o usuário estiver logado tenta enviar para API (createNoteApi)
- * - em caso de erro, lança a exceção (para UI tratar)
- * - se não estiver logado, salva localmente (demo/offline)
- */
 export async function saveNote(note: { title: string; content: string; tags: string[]; }): Promise<string> {
   const user = getCurrentUser();
   if (!user) throw new Error("Not logged");
 
-  // offline/demo fallback
   if (!isLogged()) {
     const notes = JSON.parse(localStorage.getItem(`notes_${user.userId}`) || "[]");
     const id = crypto.randomUUID();
@@ -103,19 +92,15 @@ export async function saveNote(note: { title: string; content: string; tags: str
     return id;
   }
 
-  // online: enviar para backend
   try {
     const res = await createNoteApi(note);
-    // API retorna { id: <Long> } conforme backend Java
     const id = String(res?.id ?? res);
-    // atualizar cache local presumivelmente
     const notes: Note[] = JSON.parse(localStorage.getItem(`notes_${user.userId}`) || "[]");
     notes.unshift({ id, ...note, createdAt: new Date().toLocaleString("pt-BR") });
     localStorage.setItem(`notes_${user.userId}`, JSON.stringify(notes));
     return id;
   } catch (err: any) {
     console.error("Erro ao criar nota via API:", err);
-    // repassa mensagem legível para o componente
     const detail = err?.body?.error ?? err?.message ?? JSON.stringify(err);
     throw new Error(detail);
   }
@@ -128,7 +113,6 @@ export async function updateNote(id: string, note: { title: string; content: str
   const token = getToken();
   const notesLocal: Note[] = JSON.parse(localStorage.getItem(`notes_${user.userId}`) || "[]");
 
-  // 🔹 Se não estiver logado -> update apenas no localStorage
   if (!token) {
     const idx = notesLocal.findIndex(n => n.id === id);
     if (idx !== -1) {
@@ -138,9 +122,8 @@ export async function updateNote(id: string, note: { title: string; content: str
     return;
   }
 
-  // 🔹 Se estiver logado -> Update na API + local
   try {
-    await fetchNoteUpdate(id, note); // em backend.ts
+    await fetchNoteUpdate(id, note);
     const idx = notesLocal.findIndex(n => n.id === id);
     if (idx !== -1) {
       notesLocal[idx] = { ...notesLocal[idx], ...note };
@@ -152,30 +135,85 @@ export async function updateNote(id: string, note: { title: string; content: str
   }
 }
 
-/**
- * Deleta nota:
- * - se estiver logado tenta deletar no backend, caso contrário apenas remove local
- */
+// Função DELETE original (Hard Delete direto) - usada internamente ou se quiser deletar sem lixeira
 export async function deleteNote(id: string): Promise<void> {
   const user = getCurrentUser();
   if (!user) return;
-  // se offline apenas atualiza cache local
-  if (!isLogged()) {
-    const notes = JSON.parse(localStorage.getItem(`notes_${user.userId}`) || "[]").filter((n: any) => n.id !== id);
-    localStorage.setItem(`notes_${user.userId}`, JSON.stringify(notes));
-    return;
-  }
+  
+  // Atualiza local imediatamente para UI rápida
+  const notes = JSON.parse(localStorage.getItem(`notes_${user.userId}`) || "[]").filter((n: any) => n.id !== id);
+  localStorage.setItem(`notes_${user.userId}`, JSON.stringify(notes));
 
-  // online: tentar deletar no backend e atualizar cache
-  try {
-    await deleteNoteApi(Number(id));
-    const notes = JSON.parse(localStorage.getItem(`notes_${user.userId}`) || "[]").filter((n: any) => n.id !== id);
-    localStorage.setItem(`notes_${user.userId}`, JSON.stringify(notes));
-  } catch (err) {
-    console.warn("Erro ao deletar nota via API, removendo localmente:", err);
-    const notes = JSON.parse(localStorage.getItem(`notes_${user.userId}`) || "[]").filter((n: any) => n.id !== id);
-    localStorage.setItem(`notes_${user.userId}`, JSON.stringify(notes));
+  if (isLogged()) {
+    try {
+      await deleteNoteApi(Number(id));
+    } catch (err) {
+      console.warn("Erro ao deletar nota via API:", err);
+    }
   }
+}
+
+// ---------- LIXEIRA (ADAPTADO) ----------
+
+// 1. Pegar notas da lixeira (Somente local)
+export function getTrashNotes(): Note[] {
+    const user = getCurrentUser();
+    if (!user) return [];
+    // Usa uma chave DIFERENTE para não misturar com a API (`trash_notes_...`)
+    return JSON.parse(localStorage.getItem(`trash_notes_${user.userId}`) || "[]");
+}
+
+// 2. Mover para a Lixeira
+// Lógica: Salva no "trash_notes" local e DELETA da API (pois API não tem lixeira)
+export async function moveToTrash(id: string): Promise<void> {
+    const user = getCurrentUser();
+    if (!user) return;
+
+    // Pega as notas atuais
+    const liveNotes: Note[] = JSON.parse(localStorage.getItem(`notes_${user.userId}`) || "[]");
+    const noteToTrash = liveNotes.find(n => n.id === id);
+
+    if (noteToTrash) {
+        // Salva na lixeira local
+        const trashNotes = getTrashNotes();
+        trashNotes.push({ ...noteToTrash, isTrashed: true });
+        localStorage.setItem(`trash_notes_${user.userId}`, JSON.stringify(trashNotes));
+
+        // Remove da lista local e da API
+        await deleteNote(id); 
+    }
+}
+
+// 3. Restaurar da Lixeira
+// Lógica: Cria uma NOVA nota na API com os dados da lixeira e remove da lixeira local
+export async function restoreFromTrash(id: string): Promise<void> {
+    const user = getCurrentUser();
+    if (!user) return;
+
+    const trashNotes = getTrashNotes();
+    const noteToRestore = trashNotes.find(n => n.id === id);
+
+    if (noteToRestore) {
+        // Cria novamente na API (vai ganhar um novo ID)
+        await saveNote({
+            title: noteToRestore.title,
+            content: noteToRestore.content,
+            tags: noteToRestore.tags
+        });
+
+        // Remove da lixeira
+        const newTrashList = trashNotes.filter(n => n.id !== id);
+        localStorage.setItem(`trash_notes_${user.userId}`, JSON.stringify(newTrashList));
+    }
+}
+
+// 4. Deletar Permanentemente (Remove apenas do local storage da lixeira)
+export function deletePermanently(id: string): void {
+    const user = getCurrentUser();
+    if (!user) return;
+
+    const trashNotes = getTrashNotes().filter(n => n.id !== id);
+    localStorage.setItem(`trash_notes_${user.userId}`, JSON.stringify(trashNotes));
 }
 
 // ---------- REMINDERS ----------

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight, FaTrash } from "react-icons/fa";
+// Importando funções soltas do NOVO storage.ts
 import { getReminders, deleteReminder, type Reminder } from "../../lib/storage";
 import BotaoVoltar from "../../Components/BotaoVoltar";
 
@@ -12,12 +13,14 @@ const Calendario = () => {
   const [reminders, setReminders] = useState<Reminder[]>([]);
 
   useEffect(() => {
+    // Carrega lembretes usando a função direta
     setReminders(getReminders());
   }, []);
 
   const handleDeleteReminder = (e: React.MouseEvent, id: number) => {
     e.stopPropagation();
     deleteReminder(id);
+    // Atualiza a lista após deletar
     setReminders(getReminders());
   };
 
@@ -25,6 +28,7 @@ const Calendario = () => {
     navigate(`/VerNota?q=${encodeURIComponent(noteTitle)}`);
   };
 
+  // --- Lógica de Calendário (Mantida igual ao antigo) ---
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -49,6 +53,8 @@ const Calendario = () => {
       <h1 className="text-3xl font-bold mb-8 mt-6 sm:mt-10 text-left w-full max-w-5xl px-2">Calendário de Lembretes</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+        
+        {/* CALENDÁRIO */}
         <div className="bg-white dark:bg-[#111113] border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm h-[500px] flex flex-col justify-center relative">
           <div className="absolute top-6 left-6">
             <h2 className="text-xl font-semibold">Selecione uma Data</h2>
@@ -85,6 +91,7 @@ const Calendario = () => {
           </div>
         </div>
 
+        {/* LISTA DE LEMBRETES */}
         <div className="bg-white dark:bg-[#111113] border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm flex flex-col h-[500px]">
           <div className="mb-6">
             <h2 className="text-xl font-semibold">Lembretes para {selectedDate.toLocaleDateString('pt-BR')}</h2>
