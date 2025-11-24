@@ -1,9 +1,9 @@
-<h1 align="center">Nexus Workspace (Nome Provisório)</h1>
+<h1 align="center">IntelliNote</h1>
 
 ###
 
 <p align="left">
-Uma plataforma unificada de produtividade e desenvolvimento profissional, desenhada para os desafios do futuro do trabalho. O Nexus Workspace combina a organização de um workspace flexível com o poder de uma IA generativa integrada, atuando como uma parceira para o dia a dia. A solução foca em ajudar profissionais a conciliar a vida pessoal e profissional em regimes híbridos e oferece uma plataforma inteligente de <i>upskilling</i> e <i>reskilling</i> baseada em IA  
+Uma plataforma unificada de produtividade e desenvolvimento profissional, desenhada para os desafios do futuro do trabalho. O IntelliNote combina a organização de um workspace flexível com o poder de uma IA generativa integrada, atuando como uma parceira para o dia a dia. A solução foca em ajudar profissionais a conciliar a vida pessoal e profissional em regimes híbridos e oferece uma plataforma inteligente de <i>upskilling</i> e <i>reskilling</i> baseada em IA  
 </p>
 
 ###
@@ -16,8 +16,8 @@ Uma plataforma unificada de produtividade e desenvolvimento profissional, desenh
   
   ```
   1. Título e Descrição
-  2. Status do Projeto
   3. Sumário
+  2. Status do Projeto
   4. Sobre o Projeto
   5. Tecnologias Utilizadas
   6. Instalação
@@ -32,16 +32,20 @@ Uma plataforma unificada de produtividade e desenvolvimento profissional, desenh
 
 ###
 
+<h1 align="center">✅Status do Projeto ✅</h1>
+
+<div align="center">
+<img src="https://camo.githubusercontent.com/7f18ec34e2ad1778ac9e9c17fdf47ff3abd1b6bee599eb81d352a9193d579384/687474703a2f2f696d672e736869656c64732e696f2f7374617469632f76313f6c6162656c3d535441545553266d6573736167653d454d253230444553454e564f4c56494d454e544f26636f6c6f723d475245454e267374796c653d666f722d7468652d6261646765" width="250"/>
+</div>
+
 <h1 align="center">❗Sobre o Projeto❗</h1>
 
 ###
 
-<img src="https://camo.githubusercontent.com/7f18ec34e2ad1778ac9e9c17fdf47ff3abd1b6bee599eb81d352a9193d579384/687474703a2f2f696d672e736869656c64732e696f2f7374617469632f76313f6c6162656c3d535441545553266d6573736167653d454d253230444553454e564f4c56494d454e544f26636f6c6f723d475245454e267374796c653d666f722d7468652d6261646765" width="250" />
-
 <p align="left">
 Este projeto é a nossa resposta à <strong>Global Solution 2025/2 da FIAP</strong>, que propõe o desafio de reimaginar "O Futuro do Trabalho". Vivemos um momento de disrupção, onde avanços como a inteligência artificial estão transformando profissões. Em vez de ver esse cenário como uma ameaça, nossa solução o encara como uma "oportunidade única de reimaginar o trabalho".
 <br><br>
-O Nexus Workspace nasce da fusão de três pilares de inspiração fornecidos pelo desafio:
+O IntelliNote nasce da fusão de três pilares de inspiração fornecidos pelo desafio:
 </p>
 <ul align="left">
   <li>Plataformas de upskilling e reskilling baseadas em IA;</li>
@@ -74,25 +78,58 @@ Nossa solução é um assistente de produtividade que centraliza tarefas, notas 
 
 <h1 align="center">⚙️Instalação⚙️</h1>
 
-###
 
-<p align="left">Insira aqui o tutorial de como instalar]</p>
+```bash
+# Clone o repositório
+git clone https://github.com/MLG-Consultoria/Global-Solution-2-Semestre
+
+# Acesse o diretório do projeto
+cd Global-Solution-2-Semestre/front-end
+
+# Instale dependências
+npm install
+
+# Execute o projeto
+npm run dev
+```
 
 ###
 
 <h1 align="center">🛠️Como Usar🛠️</h1>
 
-###
-
-<p align="left">[Insira aqui o tutorial de Como Usar]</p>
+<p align="left">
+  <p>Link do Site: <a href="https://intellinote-beta.vercel.app/">Site (Vercel)</a></p>
+1. Crie sua conta ou faça login <br>
+2. Acesse o painel de tarefas e calendário <br>
+3. Interaja com a IA para recomendações de aprendizado e produtividade <br>
+4. Gerencie metas, trilhas e evolução profissional</p>
 
 ###
 
 <h1 align="center">📁Estrutura de Pastas📁</h1>
 
-###
+```
+IntelliNote
+├───public
+└───src
+    ├───assets
+    │   └───FotosIntegrantes
+    │       ├───FotosAntigas
+    │       └───FotosNovas
+    ├───Components
+    ├───context
+    ├───data
+    ├───lib
+    ├───Routes
+    │   ├───Integrantes
+    │   ├───Login
+    │   ├───MainFunctions
+    │   └───Outros
+    │       └───Integrantes
+    └───services
 
-<p align="left">[Insira aqui a Estrutura de Pastas]</p>
+```
+
 
 ###
 
@@ -143,15 +180,59 @@ Nossa solução é um assistente de produtividade que centraliza tarefas, notas 
 
 ###
 
-<p align="left">[Insira aqui as ScreenShots]</p>
+<p align="center">
+<img src="./readme-images/ScreenShots/Login.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/Cadastro.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/Calendario.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/MenuPrincipal.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/Integrantes.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/Contato.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/FAQ.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/SobreNos.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/ReSkilling.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/UpSkilling.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/CriarNota.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/MinhasNotas.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/Calendario.png" alt="Tela de Login" width="600"/>
+</p>
 
 ###
 
 <h1 align="center">📞Informações de Contato📞</h1>
 
-###
-
-<p align="left">[Insira aqui as informações de Contato de cada integrantes (ou do grupo)]</p>
+<table align="center">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/DevLuqinhas">
+        <img src="https://avatars.githubusercontent.com/u/201008696?v=4" width="100px;" alt="Foto do Lucas Vieira"/><br>
+        <sub>
+          <b>Lucas Vieira</b>
+        </sub>
+      </a><br>
+      <b>RM: 561342</b><br>
+      <b>Turma: 1TDSPK</b><br>
+      <a href="https://github.com/DevLuqinhas">Github</a> • <a href="https://www.linkedin.com/in/devlucasvieira/">Linkedin</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/roque-arantes">
+        <img src="https://avatars.githubusercontent.com/u/202198493?v=4" width="100px;" alt="Foto do Matheus Roque"/><br>
+        <sub>
+          <b>Matheus Roque</b>
+        </sub>
+      </a><br>
+      <b>RM: 561959</b><br> <b>Turma: 1TDSPK</b><br>
+      <a href="https://github.com/roque-arantes">Github</a> • <a href="https://www.linkedin.com/in/matheus-roque-arantes-446280328/">Linkedin</a> </td>
+    <td align="center">
+      <a href="https://github.com/RuralGiovane">
+        <img src="https://avatars.githubusercontent.com/u/200883157?s=400&u=4c0d649624f6736e702b60244099bdf4b887eda7&v=4" width="100px;" alt="Foto do Giovane dos Santos"/><br>
+        <sub>
+          <b>Giovane dos Santos</b>
+        </sub>
+      </a><br>
+      <b>RM: 561336</b><br> <b>Turma: 1TDSPK</b><br>
+      <a href="https://github.com/RuralGiovane">Github</a> • <a href="https://www.linkedin.com/in/giovaneamato/">Linkedin</a> </td>
+  </tr>
+</table>
 
 ###
 
@@ -159,6 +240,10 @@ Nossa solução é um assistente de produtividade que centraliza tarefas, notas 
 
 ###
 
-<p align="left">Github: https://github.com/MLG-Consultoria/Global-Solution-2-Semestre<br>Youtube:<br>Site:</p>
+<p align="left">
+  <p>Github: <a href="https://github.com/MLG-Consultoria/IntelliNote">Repositório GitHub</a>
+  <p>Link do Site: <a href="https://intellinote-beta.vercel.app/">Site (Vercel)</a></p>
+  <p>Video no Youtube: <a href="https://youtu.be/B1RQXL6ItDo">Vídeo de Demonstração (YouTube)</a></p>
+</p>
 
 ###
