@@ -133,11 +133,9 @@ IntelliNote
 
 ###
 
-<h1 align="center">EndPoints</h1>
+<h1 align="center">🔗EndPoints🔗</h1>
 
 ###
-
-<h1 align="center">🔗 Endpoints da API 🔗</h1>
 
 <p align="left"> O Front-end se comunica com uma API RESTful desenvolvida em <strong>Java (Quarkus)</strong> hospedada no Render.
 
