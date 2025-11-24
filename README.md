@@ -137,7 +137,48 @@ IntelliNote
 
 ###
 
-<p align="left">[Insira aqui os Endpoints]</p>
+<h1 align="center">🔗 Endpoints da API 🔗</h1>
+
+<p align="left"> O Front-end se comunica com uma API RESTful desenvolvida em <strong>Java (Quarkus)</strong> hospedada no Render.
+
+
+
+<strong>Base URL:</strong> <code>https://global-solution-2-java-qxwy.onrender.com</code> </p>
+
+<p align="left"> <strong>🩺 Monitoramento</strong>
+
+
+<code>GET /q/health/ready</code> - Verifica a disponibilidade da aplicação. </p>
+
+<p align="left"> <strong>👤 Autenticação</strong>
+
+
+<code>POST /auth/login</code> - Autentica o usuário e retorna um Token JWT.
+
+
+<code>POST /auth/register</code> - Registra um novo usuário no sistema. </p>
+
+<p align="left"> <strong>📝 Notas (CRUD)</strong>
+
+
+<code>GET /notes</code> - Lista todas as notas do usuário logado.
+
+
+<code>GET /notes/{id}</code> - Retorna os detalhes de uma nota específica.
+
+
+<code>POST /notes</code> - Cria uma nova nota.
+
+
+<code>PUT /notes/{id}</code> - Atualiza o título, conteúdo ou tags de uma nota.
+
+
+<code>DELETE /notes/{id}</code> - Remove permanentemente uma nota (Backend). </p>
+
+<p align="left"> <strong>📧 Contato</strong>
+
+
+<code>POST /contato</code> - Envia mensagens de feedback ou dúvidas. </p>
 
 ###
 
