@@ -10,28 +10,89 @@ function timeout(ms: number) {
   return new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), ms));
 }
 
-/**
- * Consider server "alive" if we receive any HTTP response (2xx/3xx/4xx).
- * Treat 5xx as problem (return false) to avoid using a broken backend.
- */
+async function safeFetch(input: RequestInfo, init?: RequestInit, ms = REQUEST_TIMEOUT) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), ms);
+  try {
+    const res = await fetch(input, { ...(init || {}), signal: controller.signal });
+    clearTimeout(id);
+    return res;
+  } catch (e) {
+    clearTimeout(id);
+    throw e;
+  }
+}
+
 async function isAlive(url: string): Promise<boolean> {
   try {
-    const res = await Promise.race([fetch(url + "/q/health/ready"), timeout(ISALIVE_TIMEOUT)]);
-    if (res instanceof Response) {
-      const status = res.status;
-      return status < 500;
+    const res = await Promise.race([safeFetch(url + "/q/health/ready", undefined, ISALIVE_TIMEOUT), timeout(ISALIVE_TIMEOUT)]) as Response;
+    if (!(res instanceof Response)) return false;
+    if (res.status >= 500) return false;
+
+    const ct = res.headers.get("content-type") || "";
+    if (!ct.includes("application/json")) return false;
+
+    const json = await res.json().catch(() => null);
+    if (!json || json.status !== "UP") return false;
+
+    if (Array.isArray(json.checks)) {
+      for (const c of json.checks) {
+        if (c.status && c.status !== "UP") return false;
+      }
     }
-    return false;
+
+    return true;
   } catch {
     return false;
   }
 }
 
+/**
+ * Escolhe a base URL. Prioriza PROD apenas se o health estiver realmente OK
+ * e um teste leve ao endpoint retornar 200 (ou pelo menos não devolver erro de driver).
+ */
 export async function getBaseUrl(): Promise<string> {
   if (chosenBaseUrl) return chosenBaseUrl;
-  chosenBaseUrl = (await isAlive(PROD_URL)) ? PROD_URL : LOCAL_URL;
-  console.debug("[getBaseUrl] chosenBaseUrl:", chosenBaseUrl);
-  return chosenBaseUrl!;
+
+  // tenta PROD primeiro (apenas se saudável)
+  if (await isAlive(PROD_URL)) {
+    try {
+      // faz um teste leve: endpoint que não altera estado (deve existir no PROD)
+      const testRes = await safeFetch(PROD_URL + "/auth/register-debug", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ping: true }),
+      }, 3000);
+
+      // se o teste não respondeu 200 (ok), cai pra local
+      if (!testRes.ok) {
+        const ct = testRes.headers.get("content-type") || "";
+        const body = ct.includes("application/json") ? await testRes.json().catch(() => null) : await testRes.text().catch(() => null);
+        const msg = typeof body === "string" ? body : (body && (body.error || JSON.stringify(body)));
+        // se apontar para driver/DB problem, então fallback
+        if (msg && /driver|No suitable driver|jdbc/i.test(msg)) {
+          console.warn("[getBaseUrl] PROD test endpoint returned driver/db error; falling back to LOCAL");
+          chosenBaseUrl = LOCAL_URL;
+          return LOCAL_URL; // CORREÇÃO DE TIPAGEM
+        }
+        // se não for driver, também não escolha PROD (safety): fallback
+        chosenBaseUrl = LOCAL_URL;
+        return LOCAL_URL; // CORREÇÃO DE TIPAGEM
+      }
+
+      // se passou no teste -> usa PROD
+      chosenBaseUrl = PROD_URL;
+      return PROD_URL; // CORREÇÃO DE TIPAGEM
+    } catch (e) {
+      // erro ao testar -> fallback local
+      chosenBaseUrl = LOCAL_URL;
+      return LOCAL_URL; // CORREÇÃO DE TIPAGEM
+    }
+  }
+
+  // default: local
+  chosenBaseUrl = LOCAL_URL;
+  return LOCAL_URL; // CORREÇÃO DE TIPAGEM
 }
 
 export function getTokenFromStorage(): string | null {
@@ -51,7 +112,10 @@ export async function apiFetch(path: string, options: RequestInit & { noAuth?: b
     "Content-Type": "application/json",
     ...(options.headers as Record<string,string> || {}),
   };
-  if (!skipAuth && token) headers["Authorization"] = `Bearer ${token}`;
+  // TS-safe null check
+  if (!skipAuth && token != null) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
 
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
@@ -64,21 +128,36 @@ export async function apiFetch(path: string, options: RequestInit & { noAuth?: b
     if (!res.ok) {
       const ct = res.headers.get("content-type") || "";
       let body: any = null;
-      try { body = ct.includes("application/json") ? await res.json() : await res.text(); } catch (e) { body = await res.text().catch(() => null); }
-      console.error(`[apiFetch] ${res.status} ${res.statusText} ->`, body);
+      let text: string | null = null;
+      
+      // Tenta parsear JSON se o Content-Type indicar
+      if (ct.includes("application/json")) {
+        try {
+          body = await res.json();
+        } catch {
+          // Se falhar ao parsear JSON, tenta obter como texto
+          text = await res.text().catch(() => null);
+        }
+      } else {
+        // Se não for JSON, obtém como texto
+        text = await res.text().catch(() => null);
+      }
+      
+      // Determina a mensagem de erro (msg) de forma mais clara
+      // Prioriza body.error se for um objeto, senão usa o texto ou o status HTTP.
+      const msg = (body && typeof body === 'object' && body.error) 
+        ? body.error 
+        : ((typeof body === 'object' && JSON.stringify(body)) || text || res.statusText || `HTTP ${res.status}`);
+        
+      console.error(`[apiFetch] ${res.status} ${res.statusText} ->`, body || text);
 
-      // IMPORTANT: não limpamos token aqui. A decisão de logout (limpar sessão) deve
-      // ser feita pela UI/fluxo de navegação, que pode mostrar uma mensagem ao usuário
-      // ou redirecionar para a tela de login. Remover token automaticamente cria
-      // logout inesperado quando uma requisição falha (ex: ao abrir EditarNota).
       if (res.status === 401) {
         console.warn("[apiFetch] received 401 Unauthorized — not clearing local session automatically.");
       }
 
-      const msg = body?.error || (typeof body === "string" ? body : JSON.stringify(body)) || res.statusText || `HTTP ${res.status}`;
       const err: any = new Error(msg);
       err.status = res.status;
-      err.body = body;
+      err.body = body || text; // Anexa o objeto ou o texto
       throw err;
     }
 
