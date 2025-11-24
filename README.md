@@ -182,18 +182,17 @@ IntelliNote
 
 <p align="center">
 <img src="./readme-images/ScreenShots/Login.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/Cadastro.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/Calendario.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/MenuPrincipal.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/Integrantes.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/Contato.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/FAQ.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/SobreNos.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/ReSkilling.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/UpSkilling.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/CriarNota.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/MinhasNotas.png" alt="Tela de Login" width="600"/>
-<img src="./readme-images/ScreenShots/Calendario.png" alt="Tela de Login" width="600"/>
+<img src="./readme-images/ScreenShots/Cadastro.png" alt="Tela de Cadastro" width="600"/>
+<img src="./readme-images/ScreenShots/MenuPrincipal.png" alt="Tela de Menu Principal" width="600"/>
+<img src="./readme-images/ScreenShots/Integrantes.png" alt="Tela de Integrantes" width="600"/>
+<img src="./readme-images/ScreenShots/Contato.png" alt="Tela de Contato" width="600"/>
+<img src="./readme-images/ScreenShots/FAQ.png" alt="Tela do FAQ" width="600"/>
+<img src="./readme-images/ScreenShots/SobreNos.png" alt="Tela Sobre Nós" width="600"/>
+<img src="./readme-images/ScreenShots/ReSkilling.png" alt="Tela de ReSkilling" width="600"/>
+<img src="./readme-images/ScreenShots/UpSkilling.png" alt="Tela de UpSkilling" width="600"/>
+<img src="./readme-images/ScreenShots/CriarNota.png" alt="Tela de Criar Nota" width="600"/>
+<img src="./readme-images/ScreenShots/MinhasNotas.png" alt="Tela de Minhas Notas" width="600"/>
+<img src="./readme-images/ScreenShots/Calendario.png" alt="Tela de Calendário" width="600"/>
 </p>
 
 ###
